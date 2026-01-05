@@ -2,8 +2,10 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors';
+import { rateLimit } from 'express-rate-limit'
 import taskRoutes from "./routes/task";
 import authRoutes from "./routes/user";
+
 
 dotenv.config({ path: 'config/.env' });
 
@@ -18,14 +20,24 @@ const PORT = process.env.PORT;
 
 console.log("port", PORT);
 
+const limiting = rateLimit({
+  windowMs: 1000 * 60, //1 minutes
+  limit: 3, // Limit each IP to 3 requests per `window`
+  message: {success:false, message: "Too many requests, please try again later."},
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-  origin: "http://localhost:3001"
+  origin: process.env.FRONT_URL,
+  credentials: true,
 }));
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", limiting, authRoutes);
 app.use("/api/tasks", taskRoutes);
 
 //handling errors globally

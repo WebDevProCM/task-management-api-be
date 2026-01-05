@@ -37,5 +37,5 @@ export const loginUser = async (email: string, password: string) => {
         signOptions
     );
 
-    return { token };
+    return { success:true,token, user };
 };
