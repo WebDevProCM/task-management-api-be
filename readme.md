@@ -48,6 +48,23 @@ MONGO_URI='mongodb://127.0.0.1:27017/task_management_api'
 - Ensure MongoDB is running locally or provide a MongoDB Atlas connection string
 - Update MONGO_URI in config/.env accordingly
 
+### `config/db.ts`
+
+```env
+import mongoose from "mongoose";
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI as string);
+    console.log("MongoDB connected");
+  } catch (error) {
+    console.error("DB connection failed");
+  }
+};
+
+module.exports = connectDB;
+```
+
 ## Installation & Running Locally
 ```
 npm install
