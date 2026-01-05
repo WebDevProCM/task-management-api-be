@@ -3,6 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors';
 import taskRoutes from "./routes/task";
+import authRoutes from "./routes/user";
 
 dotenv.config({ path: 'config/.env' });
 
@@ -24,6 +25,7 @@ app.use(cors({
   origin: "http://localhost:3001"
 }));
 
+app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
 //handling errors globally

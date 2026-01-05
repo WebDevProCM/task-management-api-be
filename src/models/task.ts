@@ -1,10 +1,11 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
 export interface ITask extends Document {
   title: string;
   description?: string;
   status: "pending" | "completed";
   deleted: boolean;
+  user: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -12,17 +13,22 @@ export interface ITask extends Document {
 const taskSchema = new Schema<ITask>(
   {
     title: { 
-        type: String, 
-        required: true, 
-        trim: true 
+      type: String, 
+      required: true, 
+      trim: true 
     },
     description: { 
-        type: String 
+      type: String 
     },
     status: {
       type: String,
       enum: ["pending", "completed"],
       default: "pending",
+    },
+    user: { 
+      type: Schema.Types.ObjectId, 
+      ref: "User", 
+      required: true 
     },
     deleted:{
         type:Boolean,
