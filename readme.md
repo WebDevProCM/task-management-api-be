@@ -103,5 +103,12 @@ Frontend configuration is handled using environment variables.
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5001
+```
+
+## Installation & Running Locally
+```
+npm install
+npm run dev
+```
 
 
