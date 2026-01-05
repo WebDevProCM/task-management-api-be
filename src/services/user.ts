@@ -26,7 +26,8 @@ export const loginUser = async (email: string, password: string) => {
         if (!isMatch) {
         throw new Error("Invalid credentials");
     }
-
+    
+    //adding default expire time
     const signOptions: SignOptions = {
         expiresIn: (process.env.JWT_EXPIRES_IN as any) || '7d'
     };
@@ -37,5 +38,5 @@ export const loginUser = async (email: string, password: string) => {
         signOptions
     );
 
-    return { success:true,token, user };
+    return { success:true,token, user: user.email };
 };

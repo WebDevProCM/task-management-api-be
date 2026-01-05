@@ -27,5 +27,6 @@ export const updateTask = async (id: string, data: any, user:string) => {
 };
 
 export const deleteTask = async (id: string, user:string) => {
+    //soft delete
     return Task.findOneAndUpdate({_id:id, user}, {deleted: true}, {new: true});
 };

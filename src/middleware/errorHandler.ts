@@ -5,6 +5,7 @@ export interface AppError extends Error {
   data?: unknown;
 }
 
+// centralized logic for catching and formatting application errors.
 const errorHandler = (
   err: AppError,
   req: Request,

@@ -6,6 +6,7 @@ import { auth } from "../middleware/auth";
 
 const router = Router();
 
+//handling authentication/authorization and req.body validation for create and update routes
 router.post("/", auth, validate(createTaskSchema), controller.createTask);
 router.get("/", auth, controller.getTasks);
 router.get("/:id", auth, controller.getTask);

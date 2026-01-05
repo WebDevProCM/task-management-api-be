@@ -26,7 +26,7 @@ const taskSchema = new Schema<ITask>(
       default: "pending",
     },
     user: { 
-      type: Schema.Types.ObjectId, 
+      type: Schema.Types.ObjectId,  // FK reference to User
       ref: "User", 
       required: true 
     },

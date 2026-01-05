@@ -5,6 +5,7 @@ export interface AuthRequest extends Request {
     userId?: string;
 }
 
+// verifies JWT and attaches userId to the Request context
 export const auth = (
     req: AuthRequest,
     res: Response,

@@ -1,4 +1,4 @@
-//modules imports
+//modules import
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors';
@@ -6,20 +6,20 @@ import { rateLimit } from 'express-rate-limit'
 import taskRoutes from "./routes/task";
 import authRoutes from "./routes/user";
 
-
 dotenv.config({ path: 'config/.env' });
 
 //importing mongodbConnection
 const mongodbConnection = require("../config/db.ts");
 
 //middlewares imports
-const errorHandler = require("./middleware/errrorHandler");
+const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 const PORT = process.env.PORT;
 
 console.log("port", PORT);
 
+// RATE LIMITING
 const limiting = rateLimit({
   windowMs: 1000 * 60, //1 minutes
   limit: 3, // Limit each IP to 3 requests per `window`
@@ -37,6 +37,7 @@ app.use(cors({
   credentials: true,
 }));
 
+// route registration
 app.use("/api/auth", limiting, authRoutes);
 app.use("/api/tasks", taskRoutes);
 
