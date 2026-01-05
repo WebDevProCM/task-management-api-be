@@ -3,7 +3,13 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors';
 
-dotenv.config({ path: 'config/.env' })
+dotenv.config({ path: 'config/.env' });
+
+//importing mongodbConnection
+const mongodbConnection = require("../config/db.ts");
+
+//middlewares imports
+const errorHandler = require("./middleware/errrorHandler");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -17,6 +23,9 @@ app.use(cors({
   origin: "http://localhost:3001"
 }));
 
+//handling errors globally
+app.use(errorHandler);
+
 //handling Unhandled Rejection and Uncaught Exceptions globally
 process.on("uncaughtException", (err) => {
     console.log("Uncaught exception: ", err);
@@ -29,4 +38,5 @@ process.on('unhandledRejection', (reason, promise) => {
 
 app.listen(PORT, async () =>{
     console.log('server is running');
+    await mongodbConnection();
 });
