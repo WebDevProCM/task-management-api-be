@@ -38,5 +38,5 @@ export const loginUser = async (email: string, password: string) => {
         signOptions
     );
 
-    return { success:true,token, user: user.email };
+    return token;
 };

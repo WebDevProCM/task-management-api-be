@@ -9,8 +9,11 @@ export const register = async (req: Request, res: Response) => {
         );
     
         res.status(201).json({
-            id: user._id,
-            email: user.email,
+            success:true,
+            data: {
+                id: user._id,
+                email: user.email
+            }
         });
     }catch(e){
         res.status(500).json({
@@ -22,12 +25,12 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try{
-        const data = await authService.loginUser(
+        const token = await authService.loginUser(
             req.body.email,
             req.body.password
         );
     
-        res.json(data);
+        res.json({success:true,token});
     }catch(e){
         res.status(500).json({
             success:false,

@@ -8,7 +8,7 @@ export const getTasks = async (page: number, limit: number, id:string) => {
     // handling pagination
     const skip = (page - 1) * limit;
 
-    const tasks = await Task.find({user:id, delete:false})
+    const tasks = await Task.find({user:id, deleted:false})
     .skip(skip)
     .limit(limit)
     .sort({ createdAt: -1 });
@@ -19,11 +19,11 @@ export const getTasks = async (page: number, limit: number, id:string) => {
 };
 
 export const getTaskById = async (id: string, user:string) => {
-    return Task.findOne({_id:id, user, delete:false});
+    return Task.findOne({_id:id, user, deleted:false});
 };
 
 export const updateTask = async (id: string, data: any, user:string) => {
-    return Task.findOneAndUpdate({_id:id, user, delete:false}, data, { new: true });
+    return Task.findOneAndUpdate({_id:id, user, deleted:false}, data, { new: true });
 };
 
 export const deleteTask = async (id: string, user:string) => {
